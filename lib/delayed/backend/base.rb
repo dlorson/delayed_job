@@ -82,7 +82,7 @@ module Delayed
       end
 
       def payload_object
-        @payload_object ||= YAML.load(self.handler)
+        @payload_object ||= YAML.load(self.handler, nil, Delayed::PsychExt::ToRuby)
       rescue TypeError, LoadError, NameError, ArgumentError => e
         raise DeserializationError,
           "Job failed to load: #{e.message}. Handler: #{handler.inspect}"
